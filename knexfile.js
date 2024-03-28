@@ -1,6 +1,6 @@
 // Update with your config settings.
-require("dotenv").config()
-module.exports = {
+import "dotenv/config";
+export default {
 
   client: 'mysql2',
   connection: {

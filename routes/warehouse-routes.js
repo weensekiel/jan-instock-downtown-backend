@@ -1,7 +1,13 @@
-const express = require("express");
-const knex = require("knex")(require("../knexfile.js"));
+
+import express from "express"
+
+// const knex = require("knex")(require("../knexfile.js"));
+import knex from "knex"
+import knexFile from "../knexfile.js"
 
 const router = express.Router();
+
+const myknex = knex("../knexfile.js");
 
 router.use(express.json());
 
@@ -34,4 +40,4 @@ router.post("/api/warehouses", async (req, res) => {
     }
 })
 
-module.exports = router;
+export default router;
