@@ -1,20 +1,15 @@
+import express from "express";
 import Knex from "knex";
 import knexfile from "../knexfile.js";
 const knex = Knex(knexfile);
 
-import express from "express";
-
 const inventoryRouter = express.Router();
 
+import { allInventory, warehouseInventory } from "../controllers/inventory-controller.js";
+
 //get inventory for single warehouse
-inventoryRouter.get("/warehouses/:id/inventory", async (req, res) => {
-  try {
-    const { id } = req.params;
-    const inventory = await knex("inventories").where({ warehouse_id: id });
-    res.json(inventory);
-  } catch (err) {
-    res.json({ err });
-  }
-});
+inventoryRouter.get("/warehouses/:id/inventory", warehouseInventory);
+
+inventoryRouter.get("/inventories", allInventory)
 
 export { inventoryRouter };
