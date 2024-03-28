@@ -3,6 +3,7 @@ import knexfile from "../knexfile.js";
 const knex = Knex(knexfile);
 
 import express from "express";
+import { post } from "../controllers/inventory-controller.js";
 
 const inventoryRouter = express.Router();
 
@@ -16,5 +17,7 @@ inventoryRouter.get("/warehouses/:id/inventory", async (req, res) => {
     res.json({ err });
   }
 });
+
+inventoryRouter.route("/inventories").post(post);
 
 export { inventoryRouter };
