@@ -8,7 +8,7 @@
     "migrate:down": "npx knex migrate:down",
     "migrate:rollback": "npx knex migrate:rollback",
     "seed": "npx knex seed:run",
-    "start": "node --watch index.js"
+    "start": "node --watch server.js"
   },
   "keywords": [],
   "author": "",
