@@ -14,7 +14,7 @@ async function all(req, res) {
 
 async function findOne(req, res) {
   try {
-    console.log(req.params.id);
+    // console.log(req.params.id);
     const warehouseFound = await knex("warehouses")
       .select("*")
       .where({ id: req.params.id });
@@ -35,29 +35,22 @@ async function findOne(req, res) {
   }
 }
 
-async function addWarehouse(req, res) {
+async function deleteOne(req, res) {
   try {
-      const { warehouse_name, address, city, country, contact_name, contact_position, contact_phone, contact_email } = req.body;
+    console.log(req.params.id);
+    const warehouseDelete = await knex("warehouses")
+      .delete("*")
+      .where({ id: req.params.id });
 
-      if (!warehouse_name || !address || !city || !country || !contact_name || !contact_position || !contact_phone || !contact_email) {
-          return res.status(400).json({ error: "Please fill out all fields." });
-      }
-
-      const id = await knex("warehouses").insert({
-          warehouse_name,
-          address,
-          city,
-          country,
-          contact_name,
-          contact_position,
-          contact_phone,
-          contact_email
-      });
-
-      res.status(201).json({ id, warehouse_name, address, city, country, contact_name, contact_position, contact_phone, contact_email });
-  } catch (e) {
-      res.status(500).json({ error: e.message });
+    if (warehouseDelete === 0) {
+      return res.status(404).json({ message: "Warehouse ID not found" });
+    }
+    const warehouseData = warehouseFound[0];
+    res.json(warehouseData);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Could not delete warehouse" });
   }
 }
 
-export { all, findOne, addWarehouse };
+export { all, findOne, deleteOne };
