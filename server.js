@@ -16,7 +16,7 @@ app.use("/api/warehouses", warehousesRouter);
 app.use("/api", inventoryRouter);
 
 app.get("/", (_req, res) => {
-  res.send("Hello");
+  res.send("Hello world");
 });
 
 app.listen(PORT, () => {
