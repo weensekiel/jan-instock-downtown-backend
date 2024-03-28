@@ -2,7 +2,7 @@ require("dotenv").config();
 
 const express = require("express");
 const cors = require("cors");
-const {inventoryRouter} = require("./routes/inventory.js")
+const { inventoryRouter } = require("./routes/inventory.js");
 
 const app = express();
 app.use(cors({ origin: "http://localhost:5173" }));
@@ -13,11 +13,11 @@ const SingleWarehouse = require("./routes/SingleWarehouse");
 
 app.use(express.json());
 
-app.get("/warehouses/:warehouseId", SingleWarehouse);
+app.get("/api/warehouses/:warehouseId", SingleWarehouse);
 
-app.use(cors())
-app.use(express.json())
-app.use("/api", inventoryRouter)
+app.use(cors());
+app.use(express.json());
+app.use("/api", inventoryRouter);
 
 app.get("/", (_req, res) => {
   res.send("Hello");
