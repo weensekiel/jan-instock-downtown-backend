@@ -1,26 +1,22 @@
-require("dotenv").config();
+import "dotenv/config";
+import express from "express";
+import cors from "cors";
+import warehousesRouter from "./routes/warehouse-routes.js";
 
-const express = require("express");
-const cors = require("cors");
-const { inventoryRouter } = require("./routes/inventory.js");
-
-const app = express();
-app.use(cors({ origin: "http://localhost:5173" }));
-// is there a way to update this to change, that PORT would be in the front-end ENV and not available here, no?
+import { inventoryRouter } from "./routes/inventory-routes.js";
 
 const PORT = process.env.PORT;
-const SingleWarehouse = require("./routes/SingleWarehouse");
-
-app.use(express.json());
-
-app.get("/api/warehouses/:warehouseId", SingleWarehouse);
+const app = express();
 
 app.use(cors());
 app.use(express.json());
+
+app.use("/api/warehouses", warehousesRouter);
+
 app.use("/api", inventoryRouter);
 
 app.get("/", (_req, res) => {
-  res.send("Hello");
+  res.send("Hello world");
 });
 
 app.listen(PORT, () => {
