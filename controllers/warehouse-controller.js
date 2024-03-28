@@ -14,7 +14,7 @@ async function all(req, res) {
 
 async function findOne(req, res) {
   try {
-    // console.log(req.params.id);
+
     const warehouseFound = await knex("warehouses")
       .select("*")
       .where({ id: req.params.id });
