@@ -1,15 +1,12 @@
 import express from "express";
-import Knex from "knex";
-import knexfile from "../knexfile.js";
-const knex = Knex(knexfile);
+import { allInventory, warehouseInventory, inventoryItem } from "../controllers/inventory-controller.js";
 
 const inventoryRouter = express.Router();
 
-import { allInventory, warehouseInventory } from "../controllers/inventory-controller.js";
+inventoryRouter.route("/warehouses/:id/inventory").get(warehouseInventory);
 
-//get inventory for single warehouse
-inventoryRouter.get("/warehouses/:id/inventory", warehouseInventory);
+inventoryRouter.get("/inventories", allInventory);
 
-inventoryRouter.get("/inventories", allInventory)
+inventoryRouter.route("/inventory/:id").get(inventoryItem);
 
-export { inventoryRouter };
+export default inventoryRouter;
