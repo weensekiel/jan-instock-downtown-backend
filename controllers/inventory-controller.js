@@ -18,12 +18,14 @@ async function warehouseInventory(req, res) {
   }
 }
 
-async function allInventory(_req, res) {
+async function allInventory(req, res) {
   try {
-    const allInventory = await knex("inventories").select("*");
+    const allInventory = await knex("inventories")
+      .select("inventories.id", "warehouses.warehouse_name", "item_name", "description", "category", "status", "quantity")
+      .join("warehouses", "warehouses.id", "inventories.warehouse_id");
     res.status(200).json(allInventory);
-  } catch (error) {
-    res.status(500).json({ error });
+  } catch (err) {
+    res.status(500).json(err);
   }
 }
 

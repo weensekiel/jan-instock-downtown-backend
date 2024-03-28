@@ -5,7 +5,7 @@ const inventoryRouter = express.Router();
 
 inventoryRouter.route("/warehouses/:id/inventory").get(warehouseInventory);
 
-inventoryRouter.route("/inventory").get(allInventory);
+inventoryRouter.get("/inventories", allInventory);
 
 inventoryRouter.route("/inventory/:id").get(inventoryItem);
 
