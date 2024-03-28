@@ -1,18 +1,24 @@
 import "dotenv/config";
 import express from "express";
 import cors from "cors";
+import warehousesRouter from "./routes/warehouse-routes.js";
 
-import userRoutes from "./routes/warehouse-routes.js";
+import { inventoryRouter } from "./routes/inventory-routes.js";
 
+const PORT = process.env.PORT;
 const app = express();
+
 app.use(cors());
 app.use(express.json());
 
-const PORT = process.env.PORT;
+app.use("/api/warehouses", warehousesRouter);
 
-app.use("/", userRoutes);
+app.use("/api", inventoryRouter);
 
+app.get("/", (_req, res) => {
+  res.send("Hello world");
+});
 
 app.listen(PORT, () => {
-    console.log(`running at http://localhost:${PORT}`);
+  console.log(`running at http://localhost:${PORT}`);
 });
