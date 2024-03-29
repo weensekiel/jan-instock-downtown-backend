@@ -107,4 +107,62 @@ async function addWarehouse(req, res) {
   }
 }
 
-export { all, findOne, deleteOne, addWarehouse };
+async function editWarehouse(req, res) {
+  try {
+    const {
+      warehouse_name,
+      address,
+      city,
+      country,
+      contact_name,
+      contact_position,
+      contact_phone,
+      contact_email,
+    } = req.body;
+
+    if (
+      !warehouse_name ||
+      !address ||
+      !city ||
+      !country ||
+      !contact_name ||
+      !contact_position ||
+      !contact_phone ||
+      !contact_email
+    ) {
+      return res.status(400).json({ error: "Please fill out all fields." });
+    }
+
+    const { id } = req.params;
+
+    const warehouseToUpdate = {
+      warehouse_name,
+      address,
+      city,
+      country,
+      contact_name,
+      contact_position,
+      contact_phone,
+      contact_email
+    };
+
+    const updatedRows = await knex("warehouses")
+    .where({id})
+    .update(warehouseToUpdate);
+
+    if (updatedRows === 0) {
+      return res.status(404).json({error: "Warehouse not found"});
+    }
+
+    const updatedWarehouse = await knex("warehouses")
+    .where({id})
+    .select("*")
+    .first();
+
+    res.status(200).json(updatedWarehouse);
+  } catch (e) {
+    res.status(500).json({error: (e)});
+  }
+}
+
+export { all, findOne, deleteOne, addWarehouse, editWarehouse };
