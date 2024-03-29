@@ -84,7 +84,7 @@ async function allInventory(req, res) {
         "quantity"
       )
       .join("warehouses", "warehouses.id", "inventories.warehouse_id");
-    res.status(200).json(inventory);
+    res.status(200).json(allInventory);
   } catch (err) {
     res.status(500).json(err);
   }
