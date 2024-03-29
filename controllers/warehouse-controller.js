@@ -147,21 +147,23 @@ async function editWarehouse(req, res) {
     };
 
     const updatedRows = await knex("warehouses")
-    .where({id})
-    .update(warehouseToUpdate);
+      .where({ id })
+      .update(warehouseToUpdate);
 
     if (updatedRows === 0) {
-      return res.status(404).json({error: "Warehouse not found"});
+      return res.status(404).json({ error: "Warehouse not found" });
     }
 
     const updatedWarehouse = await knex("warehouses")
-    .where({id})
-    .select("*")
-    .first();
+      .where({ id })
+      .select("*")
+      .first();
 
-    res.status(200).json(updatedWarehouse);
+    const { created_at, updated_at, ...warehouseData } = updatedWarehouse;
+
+    res.status(200).json(warehouseData);
   } catch (e) {
-    res.status(500).json({error: (e)});
+    res.status(500).json({ error: (e) });
   }
 }
 
