@@ -1,6 +1,6 @@
 import express from "express";
 
-import { allInventory, warehouseInventory, inventoryItem, post, editOne } from "../controllers/inventory-controller.js";
+import { allInventory, warehouseInventory, inventoryItem, post, editOne, deleteOne } from "../controllers/inventory-controller.js";
 
 const inventoryRouter = express.Router();
 
@@ -12,5 +12,6 @@ inventoryRouter.route("/inventory/:id").get(inventoryItem);
 
 inventoryRouter.route("/inventories").post(post);
 inventoryRouter.route("/inventories/:id").put(editOne);
+inventoryRouter.route("/inventories/:id").delete(deleteOne);
 
 export { inventoryRouter };
