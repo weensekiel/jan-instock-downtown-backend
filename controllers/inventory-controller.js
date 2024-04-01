@@ -109,4 +109,20 @@ async function inventoryItem(req, res) {
   }
 }
 
-export { warehouseInventory, allInventory, inventoryItem, post, editOne };
+async function deleteOne(req, res) {
+  const { id } = req.params;
+  try {
+    const numDeleted = await knex("inventories").where({ id }).del();
+
+    if (numDeleted > 0) {
+      res.sendStatus(204);
+    } else {
+      res.status(404).send(`Can't find inventory item with id ${id}`)
+    }
+
+  } catch (e) {
+    res.status(500).json({ e });
+  }
+}
+
+export { warehouseInventory, allInventory, inventoryItem, post, editOne, deleteOne };
