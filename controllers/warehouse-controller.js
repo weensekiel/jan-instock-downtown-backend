@@ -44,7 +44,7 @@ async function deleteOne(req, res) {
     if (warehouseDelete === 0) {
       return res.status(404).json({ message: "Warehouse ID not found" });
     }
-    const warehouseData = warehouseFound[0];
+    const warehouseData = warehouseDelete;
     res.json(warehouseData);
   } catch (err) {
     console.error(err);
