@@ -27,10 +27,11 @@ async function post(req, res) {
 
 async function editOne(req, res) {
   const { id } = req.params;
-  const { warehouse_id, item_name, description, category, status } = req.body;
+  const { warehouse_id, item_name, description, quantity, category, status } =
+    req.body;
 
   try {
-    if (!item_name || !description || !category || !status) {
+    if (!item_name || !description || !category || !status || !quantity) {
       return res.status(400).json({ message: "Missing required fields" });
     }
 
